@@ -33,9 +33,6 @@
 #include <Servo.h>
 #include <Wire.h>
 #include <Firmata.h>
-#include <SPI.h>
-#include <Adafruit_BLE_Firmata.h>
-#include "Adafruit_BLE_UART.h"
 
 // move the following defines to Firmata.h?
 #define I2C_WRITE B00000000
