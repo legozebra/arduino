@@ -122,7 +122,7 @@ unsigned long testText() {
   unsigned long start = micros();
   tft.setCursor(0, 0);
   tft.setTextColor(ILI9341_WHITE);  tft.setTextSize(1);
-  tft.println("Hello World!");
+  tft.println("Hello Auntie Chas!");
   tft.setTextColor(ILI9341_YELLOW); tft.setTextSize(2);
   tft.println(1234.56);
   tft.setTextColor(ILI9341_RED);    tft.setTextSize(3);
@@ -130,17 +130,14 @@ unsigned long testText() {
   tft.println();
   tft.setTextColor(ILI9341_GREEN);
   tft.setTextSize(5);
-  tft.println("Toffee");
+  tft.println("LEGO!");
   tft.setTextSize(2);
-  tft.println("I implore thee,");
+  tft.println("Obey the three Triangles");
   tft.setTextSize(1);
-  tft.println("Study hard.");
-  tft.println("Work hard and do well");
-  tft.println("Listen to your Ma and Pa,");
-  tft.println("Or I will rend thee");
-  tft.println("in the gobberwarts");
-  tft.println("with my blurglecruncheon,");
-  tft.println("see if I don't!");
+  tft.println("This is really tiny text.");
+  tft.println("Don't forget to read the fine print");
+  tft.println("We build upon each other");
+  tft.println("is the LEGO Movie Theme...");
   return micros() - start;
 }
 
