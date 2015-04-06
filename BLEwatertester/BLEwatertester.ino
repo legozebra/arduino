@@ -687,16 +687,18 @@ void loop()
   
   // For debugging, see if there's data on the serial console, we would forwad it to BTLE
   if (Serial.available()) {
-    BLEserial.write(Serial.read());
+//    BLEserial.write(Serial.read());
+      Serial.println(Serial.read());  // Instead of sending to Bluetooth, just send to serial console..
   }
   
-  // Onto the Firmata main loop
+  // Onto the Firmata main loop   - CSL: Main Loop Logic HERE! Hardcode for Analog 5 only!
   
   byte pin, analogPin;
-  
+  int currentRead;
+
   /* DIGITALREAD - as fast as possible, check for changes and output them to the
    * BTLE buffer using Serial.print()  */
-  checkDigitalInputs();  
+//  checkDigitalInputs();              // CSL-Ignore Digital Inputs
 
   /* SERIALREAD - processing incoming messagse as soon as possible, while still
    * checking digital inputs.  */
@@ -722,12 +724,12 @@ void loop()
   if (currentMillis - previousMillis > samplingInterval) {
     previousMillis += samplingInterval;
     /* ANALOGREAD - do all analogReads() at the configured sampling interval */
-    for(pin=0; pin<TOTAL_PINS; pin++) {
-      if (IS_PIN_ANALOG(pin) && (pinConfig[pin] == ANALOG)) {
-        analogPin = PIN_TO_ANALOG(pin);
+//    for(pin=0; pin<TOTAL_PINS; pin++) {
+
+//      if (IS_PIN_ANALOG(pin) && (pinConfig[pin] == ANALOG)) {
+        analogPin = PIN_TO_ANALOG(19);  // Hardcode to ONLY LOOK at PIN 5 analog which cooresponds to pin19 on Arduino UNO..
 
         if (analogInputsToReport & (1 << analogPin)) {
-          int currentRead = analogRead(analogPin);
           
           if ((lastAnalogReads[analogPin] == -1) || (lastAnalogReads[analogPin] != currentRead)) {
             Serial.print(F("Analog")); Serial.print(analogPin); Serial.print(F(" = ")); Serial.println(currentRead);
@@ -735,13 +737,14 @@ void loop()
             lastAnalogReads[analogPin] = currentRead;
           }
         }
-      }
-    }
+//      }
+//    }
+
     // report i2c data for all device with read continuous mode enabled
-    if (queryIndex > -1) {
-      for (byte i = 0; i < queryIndex + 1; i++) {
-        readAndReportData(query[i].addr, query[i].reg, query[i].bytes);
-      }
-    }
+//    if (queryIndex > -1) {
+//      for (byte i = 0; i < queryIndex + 1; i++) {
+//        readAndReportData(query[i].addr, query[i].reg, query[i].bytes);
+//      }
+//    }
   }
 }

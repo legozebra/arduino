@@ -690,7 +690,7 @@ void loop()
     BLEserial.write(Serial.read());
   }
   
-  // Onto the Firmata main loop
+  // Onto the Firmata main loop   - Christopher Lee: Main Loop Logic HERE! Hardcode for Analog 5 only!
   
   byte pin, analogPin;
   
@@ -722,7 +722,9 @@ void loop()
   if (currentMillis - previousMillis > samplingInterval) {
     previousMillis += samplingInterval;
     /* ANALOGREAD - do all analogReads() at the configured sampling interval */
-    for(pin=0; pin<TOTAL_PINS; pin++) {
+//    for(pin=0; pin<TOTAL_PINS; pin++) {
+      pin = 5;      // Hardcode to ONLY LOOK at PIN 5 analog...
+
       if (IS_PIN_ANALOG(pin) && (pinConfig[pin] == ANALOG)) {
         analogPin = PIN_TO_ANALOG(pin);
 
@@ -735,8 +737,8 @@ void loop()
             lastAnalogReads[analogPin] = currentRead;
           }
         }
-      }
     }
+
     // report i2c data for all device with read continuous mode enabled
     if (queryIndex > -1) {
       for (byte i = 0; i < queryIndex + 1; i++) {
